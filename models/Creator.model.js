@@ -11,12 +11,15 @@ const creatorSchema = new Schema(
       maxLength: 40,
       lowercase: true,
     },
+
     bio: {
       type: String,
     },
+
     age: {
       type: String,
     },
+
     email: {
       type: String,
       required: true,
@@ -24,12 +27,15 @@ const creatorSchema = new Schema(
       lowercase: true,
       match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
     },
+
     isChef: {
       type: Boolean,
       default: false,
     },
+
     recipes: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
   },
+  
   {
     timestamps: true,
   }

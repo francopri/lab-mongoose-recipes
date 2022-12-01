@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, SchemaType } from "mongoose";
 
 const recipeSchema = new Schema({
 
@@ -47,11 +47,11 @@ const recipeSchema = new Schema({
     min: [0, "Não gasta tempo algum?!"]
   },
 
-  creator: {
-    type: String
-  },
+  creator: [{
+    type: Schema.Types.ObjectId, ref: "Creator"
+  }],
 
-  created:{
+  created: {
     type: Date,
     default: new Date(),
   }
