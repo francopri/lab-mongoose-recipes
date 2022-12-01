@@ -20,6 +20,7 @@ router.get("/all-recipes", async (req, res) => {
 
 //Iteração 2 - criando uma receita
 router.post("/create-recipe", async (req, res) => {
+
     try {
         const form = req.body;
 
@@ -48,14 +49,11 @@ router.post("/create-many", async (req, res) => {
         console.log("As seguintes receitas foram salvas: ");
         const t = newRecipes.forEach((element) => {
             console.log(element.title);
-
-        })
-
-
+        });
 
     } catch (error) {
         console.log(error);
-        return res.status(404).json({ msg: "Receita não foi criada." })
+        return res.status(404).json({ msg: "Receitas não foram criadas." })
 
     }
 });
@@ -72,7 +70,8 @@ router.put("/edit/rigatone", async (req, res) => {
             { new: true, runValidators: true }
         )
 
-        return res.status(200).json(updatedRecipe);
+        console.log("A duração da receita Rigatoni foi alterada.")
+        return res.status(200).json({ msg: "A receita foi alterada para:", updatedRecipe });
 
     } catch (error) {
         console.log(error);
@@ -84,6 +83,7 @@ router.put("/edit/rigatone", async (req, res) => {
 
 router.delete("/delete/carrot", async (req, res) => {
     try {
+
         const deleted = await RecipeModel.deleteOne({ title: "Carrot Cake" });
 
         return res.status(200).json({ msg: "A receita de Carrot Cake foi deletada", deleted });
@@ -101,6 +101,7 @@ router.delete("/delete/all", async (req, res) => {
         const deleted = await RecipeModel.deleteMany({});
 
         const recipes = await RecipeModel.find()
+        console.log("Todas as receitas foram deletadas!!");
         return res.status(200).json({ msg: "Todas receitas foram deletadas", recipes });
 
     } catch (error) {

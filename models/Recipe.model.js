@@ -44,7 +44,7 @@ const recipeSchema = new Schema({
 
   duration: {
     type: Number,
-    min: 0
+    min: [0, "Não gasta tempo algum?!"]
   },
 
   creator: {
