@@ -1,13 +1,13 @@
 import express from "express";
 
-import RecipeModel from "../models/Recipe.model.js";
+import CreatorModel from "../models/Creator.model.js";
 
 const router = express.Router();
 
 
 router.get("/all-recipes", async (req, res) => {
     try {
-        const recipes = await RecipeModel.find({}, { __v: 0 }).sort({ title: 1 });
+        const recipes = await CreatorModel.find({}, { __v: 0 }).sort({ title: 1 });
         return res.status(200).json(recipes);
 
 
@@ -24,7 +24,7 @@ router.post("/create-recipe", async (req, res) => {
     try {
         const form = req.body;
 
-        const newRecipe = await RecipeModel.create(form);
+        const newRecipe = await CreatorModel.create(form);
 
         console.log(newRecipe.title);
 
@@ -42,7 +42,7 @@ router.post("/create-many", async (req, res) => {
     try {
         const form = req.body;
 
-        const newRecipes = await RecipeModel.insertMany(form);
+        const newRecipes = await CreatorModel.insertMany(form);
 
         res.status(201).json({ msg: "As receitas foram salvas", newRecipes });
 
@@ -64,7 +64,7 @@ router.post("/create-many", async (req, res) => {
 router.put("/edit/rigatone", async (req, res) => {
     try {
 
-        const updatedRecipe = await RecipeModel.findOneAndUpdate(
+        const updatedRecipe = await CreatorModel.findOneAndUpdate(
             { title: "Rigatoni alla Genovese" },
             { duration: 100 },
             { new: true, runValidators: true }
@@ -87,7 +87,7 @@ router.put("/edit/rigatone", async (req, res) => {
 router.delete("/delete/carrot", async (req, res) => {
     try {
 
-        const deleted = await RecipeModel.deleteOne({ title: "Carrot Cake" });
+        const deleted = await CreatorModel.deleteOne({ title: "Carrot Cake" });
 
         return res.status(200).json({ msg: "A receita de Carrot Cake foi deletada", deleted });
 
@@ -101,9 +101,9 @@ router.delete("/delete/carrot", async (req, res) => {
 // Deleting all recipes
 router.delete("/delete/all", async (req, res) => {
     try {
-        const deleted = await RecipeModel.deleteMany({});
+        const deleted = await CreatorModel.deleteMany({});
 
-        const recipes = await RecipeModel.find()
+        const recipes = await CreatorModel.find()
         
         console.log("Todas as receitas foram deletadas!!");
         return res.status(200).json({ msg: "Todas receitas foram deletadas", recipes });
