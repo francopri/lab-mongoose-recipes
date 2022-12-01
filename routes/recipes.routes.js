@@ -71,7 +71,10 @@ router.put("/edit/rigatone", async (req, res) => {
         )
 
         console.log("A duração da receita Rigatoni foi alterada.")
-        return res.status(200).json({ msg: "A receita foi alterada para:", updatedRecipe });
+        return res.status(200).json({ 
+            msg: "A receita foi alterada para:", 
+            title: updatedRecipe.title  
+        });
 
     } catch (error) {
         console.log(error);
@@ -101,6 +104,7 @@ router.delete("/delete/all", async (req, res) => {
         const deleted = await RecipeModel.deleteMany({});
 
         const recipes = await RecipeModel.find()
+        
         console.log("Todas as receitas foram deletadas!!");
         return res.status(200).json({ msg: "Todas receitas foram deletadas", recipes });
 
