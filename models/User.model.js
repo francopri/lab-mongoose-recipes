@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const creatorSchema = new Schema(
+const userSchema = new Schema(
   {
     name: {
       type: String,
@@ -35,12 +35,12 @@ const creatorSchema = new Schema(
 
     recipes: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
   },
-  
+
   {
     timestamps: true,
   }
 );
 
-const CreatorModel = model("Creator", creatorSchema);
+const UserModel = model("User", userSchema);
 
-export default CreatorModel;
+export default UserModel;

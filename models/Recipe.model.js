@@ -1,4 +1,4 @@
-import { Schema, model, SchemaType } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const recipeSchema = new Schema({
 
@@ -47,9 +47,7 @@ const recipeSchema = new Schema({
     min: [0, "Não gasta tempo algum?!"]
   },
 
-  creator: [{
-    type: Schema.Types.ObjectId, ref: "Creator"
-  }],
+  creator: {type: Schema.Types.ObjectId, ref: "User"},
 
   created: {
     type: Date,
@@ -57,11 +55,6 @@ const recipeSchema = new Schema({
   }
 
 });
-
-// const Recipe = mongoose.model('Recipe', recipeSchema);
-
-// module.exports = Recipe;
-
 
 const RecipeModel = model("Recipe", recipeSchema);
 
