@@ -15,7 +15,7 @@ recipeRouter.get("/all-recipes", async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        return res.status(500).json(error.errors);
+        return res.status(400).json(error.errors);
 
     }
 });
@@ -150,7 +150,7 @@ recipeRouter.delete("/delete/all", async (req, res) => {
 
         const deleted = await RecipeModel.deleteMany({});
 
-        const recipes = await RecipeModel.find({ })
+        const recipes = await RecipeModel.find({})
 
         console.log("Todas as receitas foram deletadas!!");
         return res.status(200).json({ msg: "Todas receitas foram deletadas", recipes });
@@ -163,7 +163,8 @@ recipeRouter.delete("/delete/all", async (req, res) => {
 });
 
 // Deleter uma receita - por ID
-recipeRouter.delete("/delete/:idRecipe", async (req, res) => { 
+recipeRouter.delete("/delete/:idRecipe", async (req, res) => {
+
     try {
 
         const { idRecipe } = req.params;
@@ -176,7 +177,7 @@ recipeRouter.delete("/delete/:idRecipe", async (req, res) => {
         }
 
         await UserModel.findByIdAndUpdate(
-            deletedRecipe.user,
+            deletedRecipe.creator,
             {
                 $pull: {
                     recipes: idRecipe,
@@ -185,7 +186,7 @@ recipeRouter.delete("/delete/:idRecipe", async (req, res) => {
             { new: true, runValidators: true }
         );
 
-        return res.status(200).json({msg: "Receita deletada."});
+        return res.status(200).json({ msg: "Receita deletada."});
 
     } catch (error) {
         console.log(error);

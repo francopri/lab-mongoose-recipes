@@ -38,7 +38,7 @@ userRoute.get("/oneUser/:idUser", async (req, res) => {
 userRoute.get("/all-users", async (req, res) => {
   try {
 
-    const allUsers = await UserModel.find({}, { __v: 0 }).sort({ name: 1 });
+    const allUsers = await UserModel.find().populate("recipes");
 
     return res.status(200).json(allUsers);
 
@@ -79,7 +79,7 @@ userRoute.delete("/delete/:idUser", async (req, res) => {
 
     await RecipeModel.deleteMany({ user: idUser })
 
-    return res.status(200).json({msg: "Usuário deletado."})
+    return res.status(200).json({ msg: "Usuário deletado." })
 
   } catch (error) {
     console.log(error);
